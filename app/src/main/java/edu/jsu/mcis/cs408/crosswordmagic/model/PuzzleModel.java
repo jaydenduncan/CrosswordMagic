@@ -4,7 +4,7 @@ import edu.jsu.mcis.cs408.crosswordmagic.DefaultController;
 
 public class PuzzleModel extends AbstractModel {
 
-    private int DEFAULT_PUZZLE_ID = 1;
+    public final int DEFAULT_PUZZLE_ID = 1;
 
     public static final String TAG = "PuzzleModel";
 
