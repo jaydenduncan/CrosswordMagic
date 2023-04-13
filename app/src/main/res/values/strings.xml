@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Crossword Magic</string>
+    <string name="clue_header_across">Across</string>
+    <string name="clue_header_down">Down</string>
+    <string name="dialog_title">Enter Your Guess</string>
+    <string name="dialog_message">Enter your guess and tap OK or CANCEL:</string>
+    <string name="database_file_name">cwmagic.db</string>
+    <string name="sql_create_puzzles_table">CREATE TABLE puzzles (_id INTEGER NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, height INTEGER NOT NULL, width INTEGER NOT NULL, PRIMARY KEY(_id AUTOINCREMENT))</string>
+    <string name="sql_create_words_table">CREATE TABLE words (_id INTEGER NOT NULL, puzzleid INTEGER NOT NULL, row INTEGER NOT NULL, column INTEGER NOT NULL, box INTEGER NOT NULL, direction INTEGER NOT NULL, word TEXT NOT NULL, clue TEXT NOT NULL, PRIMARY KEY(_id AUTOINCREMENT), FOREIGN KEY(puzzleid) REFERENCES puzzles(_id))</string>
+    <string name="sql_create_guesses_table">CREATE TABLE guesses (puzzleid INTEGER NOT NULL, wordid INTEGER NOT NULL, FOREIGN KEY(wordid) REFERENCES words(_id), FOREIGN KEY(puzzleid) REFERENCES puzzles(_id), PRIMARY KEY(puzzleid, wordid))</string>
+    <string name="sql_drop_guesses_table">DROP TABLE IF EXISTS guesses</string>
+    <string name="sql_drop_words_table">DROP TABLE IF EXISTS words</string>
+    <string name="sql_drop_puzzles_table">DROP TABLE IF EXISTS puzzles</string>
+    <string name="sql_get_puzzle">SELECT * FROM puzzles WHERE _id = ?</string>
+    <string name="sql_get_words"><!-- INSERT YOUR QUERY HERE --></string>
+    <string name="sql_table_puzzles">puzzles</string>
+    <string name="sql_table_words">words</string>
+    <string name="sql_table_guesses">guesses</string>
+    <string name="sql_field_id">_id</string>
+    <string name="sql_field_name">name</string>
+    <string name="sql_field_description">description</string>
+    <string name="sql_field_height">height</string>
+    <string name="sql_field_width">width</string>
+    <string name="sql_field_puzzleid">puzzleid</string>
+    <string name="sql_field_row">row</string>
+    <string name="sql_field_column">column</string>
+    <string name="sql_field_box">box</string>
+    <string name="sql_field_direction">direction</string>
+    <string name="sql_field_word">word</string>
+    <string name="sql_field_clue">clue</string>
+</resources>
