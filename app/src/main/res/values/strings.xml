@@ -2,8 +2,13 @@
     <string name="app_name">Crossword Magic</string>
     <string name="clue_header_across">Across</string>
     <string name="clue_header_down">Down</string>
+    <string name="tab_title_puzzle">Puzzle</string>
+    <string name="tab_title_clues">Clues</string>
+    <string name="guess_correct">Congratulations, you guessed correctly!</string>
+    <string name="guess_incorrect">Sorry, your guess was incorrect.  Please try again.</string>
+    <string name="puzzle_solved">Congratulations, you have solved this puzzle!</string>
     <string name="dialog_title">Enter Your Guess</string>
-    <string name="dialog_message">Enter your guess and tap OK or CANCEL:</string>
+    <string name="dialog_message">Enter your guess and tap GUESS or CANCEL:</string>
     <string name="database_file_name">cwmagic.db</string>
     <string name="sql_create_puzzles_table">CREATE TABLE puzzles (_id INTEGER NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, height INTEGER NOT NULL, width INTEGER NOT NULL, PRIMARY KEY(_id AUTOINCREMENT))</string>
     <string name="sql_create_words_table">CREATE TABLE words (_id INTEGER NOT NULL, puzzleid INTEGER NOT NULL, row INTEGER NOT NULL, column INTEGER NOT NULL, box INTEGER NOT NULL, direction INTEGER NOT NULL, word TEXT NOT NULL, clue TEXT NOT NULL, PRIMARY KEY(_id AUTOINCREMENT), FOREIGN KEY(puzzleid) REFERENCES puzzles(_id))</string>
