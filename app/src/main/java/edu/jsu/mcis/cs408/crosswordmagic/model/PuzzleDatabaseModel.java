@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -223,21 +224,28 @@ public class PuzzleDatabaseModel extends SQLiteOpenHelper {
 
                 // loop through word list in results; add each word to Puzzle as a new Word object
 
-                HashMap<String, String> params2 = new HashMap<>();
-                params2.put(context.getString(R.string.sql_field_id), String.valueOf(cursor.getInt(1)));
-                params2.put(context.getString(R.string.sql_field_puzzleid), String.valueOf(cursor.getInt(2)));
-                params2.put(context.getString(R.string.sql_field_row), String.valueOf(cursor.getInt(3)));
-                params2.put(context.getString(R.string.sql_field_column), String.valueOf(cursor.getInt(4)));
-                params2.put(context.getString(R.string.sql_field_box), String.valueOf(cursor.getInt(5)));
-                params2.put(context.getString(R.string.sql_field_direction), String.valueOf(cursor.getInt(6)));
-                params2.put(context.getString(R.string.sql_field_word), String.valueOf(cursor.getInt(7)));
-                params2.put(context.getString(R.string.sql_field_clue), String.valueOf(cursor.getInt(8)));
+                do{
+
+                    HashMap<String, String> params2 = new HashMap<>();
+
+                    params2.put(context.getString(R.string.sql_field_id), String.valueOf(cursor.getInt(0)));
+                    params2.put(context.getString(R.string.sql_field_puzzleid), String.valueOf(id));
+                    params2.put(context.getString(R.string.sql_field_row), String.valueOf(cursor.getInt(2)));
+                    params2.put(context.getString(R.string.sql_field_column), String.valueOf(cursor.getInt(3)));
+                    params2.put(context.getString(R.string.sql_field_box), String.valueOf(cursor.getInt(4)));
+                    params2.put(context.getString(R.string.sql_field_direction), String.valueOf(cursor.getInt(5)));
+                    params2.put(context.getString(R.string.sql_field_word), String.valueOf(cursor.getString(6)));
+                    params2.put(context.getString(R.string.sql_field_clue), String.valueOf(cursor.getString(7)));
+
+                    word = new Word(params2);
+
+                    System.out.println(word.toString());
+
+                    puzzle.addWord(word);
+
+                }while(cursor.moveToNext());
 
                 cursor.close();
-
-                word = new Word(params2);
-
-                puzzle.addWord(word);
 
             }
 
@@ -248,6 +256,12 @@ public class PuzzleDatabaseModel extends SQLiteOpenHelper {
         // return fully initialized Puzzle object
 
         return puzzle;
+
+    }
+
+    public void addGuess(int puzzleid, int wordid){
+
+
 
     }
 

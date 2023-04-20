@@ -1,9 +1,13 @@
 package edu.jsu.mcis.cs408.crosswordmagic.model;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class Puzzle {
+
+    public static final String PUZZLE_TAG = "Puzzle";
 
     public static final char BLOCK_CHAR = '*';
     public static final char BLANK_CHAR = ' ';
@@ -91,7 +95,7 @@ public class Puzzle {
 
         /* add word to grid (for development only!) */
 
-        addWordToGrid(key);
+        //addWordToGrid(key);
 
     }
 
@@ -113,6 +117,7 @@ public class Puzzle {
 
 
          */
+
 
         /* compare guess to word(s); if it matches, and if it has not already been solved, assign word to "result" and call "addWordToGrid()" */
 
@@ -150,13 +155,23 @@ public class Puzzle {
 
         /* get word properties and add letters to "leters" array */
 
-        /*
+        String word = w.getWord();
+        int column = w.getColumn();
+        int row = w.getRow();
+        int length = w.getWord().length();
+
+        for (int i = 0; i < word.length(); ++i) {
+
+            letters[row][column] = word.charAt(i);
+
+            if (w.isAcross())
+                column++;
+            else if (w.isDown())
+                row++;
+
+        }
 
 
-        INSERT YOUR CODE HERE
-
-
-         */
 
     }
 

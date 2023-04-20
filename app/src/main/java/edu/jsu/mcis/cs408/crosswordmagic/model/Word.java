@@ -69,4 +69,20 @@ public class Word {
         return clue;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder();
+
+        s.append("id:").append(id).append("\n");
+        s.append("puzzleid:").append(puzzleid).append("\n");
+        s.append("row:").append(row).append("\n");
+        s.append("column:").append(column).append("\n");
+        s.append("box:").append(box).append("\n");
+        s.append("direction:").append(direction).append("\n");
+        s.append("word:").append(word).append("\n");
+        s.append("clue:").append(clue).append("\n");
+
+        return s.toString();
+    }
+
 }
