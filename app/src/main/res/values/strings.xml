@@ -12,7 +12,7 @@
     <string name="sql_drop_words_table">DROP TABLE IF EXISTS words</string>
     <string name="sql_drop_puzzles_table">DROP TABLE IF EXISTS puzzles</string>
     <string name="sql_get_puzzle">SELECT * FROM puzzles WHERE _id = ?</string>
-    <string name="sql_get_words"><!-- INSERT YOUR QUERY HERE --></string>
+    <string name="sql_get_words">SELECT * FROM words WHERE puzzleid = ?</string>
     <string name="sql_table_puzzles">puzzles</string>
     <string name="sql_table_words">words</string>
     <string name="sql_table_guesses">guesses</string>
