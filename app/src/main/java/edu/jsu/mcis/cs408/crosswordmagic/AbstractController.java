@@ -1,5 +1,7 @@
 package edu.jsu.mcis.cs408.crosswordmagic;
 
+import android.util.Log;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
@@ -38,6 +40,8 @@ public abstract class AbstractController implements PropertyChangeListener {
 
         views.add(view);
 
+        Log.i("AbstractController", "Number of Views: " + views.size());
+
     }
 
     public void removeView(AbstractView view) {
@@ -63,6 +67,25 @@ public abstract class AbstractController implements PropertyChangeListener {
 
                 Method method = model.getClass().getMethod("set" + propertyName, newValue.getClass());
                 method.invoke(model, newValue);
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    protected void getModelProperty(String methodName) {
+
+        for (AbstractModel model : models) {
+
+            try {
+
+                Method method = model.getClass().getMethod("get" + methodName);
+                method.invoke(model);
 
             }
 

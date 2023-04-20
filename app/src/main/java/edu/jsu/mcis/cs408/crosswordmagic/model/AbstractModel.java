@@ -3,13 +3,11 @@ package edu.jsu.mcis.cs408.crosswordmagic.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class AbstractModel
-{
+public abstract class AbstractModel {
 
     protected PropertyChangeSupport propertyChangeSupport;
 
-    public AbstractModel()
-    {
+    public AbstractModel() {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 

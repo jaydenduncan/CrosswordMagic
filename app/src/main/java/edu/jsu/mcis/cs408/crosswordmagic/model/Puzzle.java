@@ -1,18 +1,23 @@
 package edu.jsu.mcis.cs408.crosswordmagic.model;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Puzzle {
 
-    private static final char BLOCK_CHAR = '*';
-    private static final char BLANK_CHAR = ' ';
+    public static final char BLOCK_CHAR = '*';
+    public static final char BLANK_CHAR = ' ';
 
     private HashMap<String, Word> words;
+    private HashSet<String> guessed;
+
     private String name, description;
     private Integer height, width;
 
     private Character[][] letters;
-    private Integer[][] boxes;
+    private Integer[][] numbers;
+
+    private boolean solved = false;
 
     private StringBuilder cluesAcrossBuffer, cluesDownBuffer;
 
@@ -23,46 +28,47 @@ public class Puzzle {
         this.height = Integer.parseInt(params.get("height"));
         this.width = Integer.parseInt(params.get("width"));
 
+        guessed = new HashSet<>();
         words = new HashMap<>();
 
         letters = new Character[height][width];
-        boxes = new Integer[height][width];
+        numbers = new Integer[height][width];
 
         cluesAcrossBuffer = new StringBuilder();
         cluesDownBuffer = new StringBuilder();
 
-        // fill letter squares with blocks and number squares with zeros (default values)
-
         for (int i = 0; i < height; ++i) {
+
             for (int j = 0; j < width; ++j) {
+
                 letters[i][j] = BLOCK_CHAR;
-                boxes[i][j] = 0;
+                numbers[i][j] = 0;
+
             }
+
         }
 
     }
 
     public void addWord(Word word) {
 
-        // create composite key (example: "1A" for word at box 1, across)
-
         String key = (word.getBox() + word.getDirection().toString());
 
-        // add word to collection
+        /* add to collection */
 
         words.put(key, word);
 
-        // get word properties (length and row/column of first letter)
+        /* get properties */
 
         int row = word.getRow();
         int column = word.getColumn();
         int length = word.getWord().length();
 
-        // add box number to boxes array
+        /* add to boxes */
 
-        boxes[row][column] = word.getBox();
+        numbers[row][column] = word.getBox();
 
-        // clear letter boxes (remove blocks from letter array to make room for the word)
+        /* clear letter boxes */
 
         for (int i = 0; i < length; ++i) {
 
@@ -75,7 +81,7 @@ public class Puzzle {
 
         }
 
-        // append clue (across or down) to corresponding StringBuilder
+        /* append clue (across or down) to corresponding StringBuilder */
 
         if (word.isAcross())
             cluesAcrossBuffer.append(word.getBox()).append(": ").append(word.getClue()).append("\n");
@@ -83,6 +89,79 @@ public class Puzzle {
         else if (word.isDown())
             cluesDownBuffer.append(word.getBox()).append(": ").append(word.getClue()).append("\n");
 
+        /* add word to grid (for development only!) */
+
+        addWordToGrid(key);
+
+    }
+
+    public Word guess(Integer num, String guess) {
+
+        Word result = null;
+
+        /* create keys for across/down word(s) at specified box number */
+
+        String acrossKey = num + WordDirection.ACROSS.toString();
+        String downKey = num + WordDirection.DOWN.toString();
+
+        /* get word(s) from collection (will return null for non-existent words!) */
+
+        /*
+
+
+        INSERT YOUR CODE HERE
+
+
+         */
+
+        /* compare guess to word(s); if it matches, and if it has not already been solved, assign word to "result" and call "addWordToGrid()" */
+
+        /*
+
+
+        INSERT YOUR CODE HERE
+
+
+         */
+
+        /* check if any blank cells remain in "letters"; if not, the puzzle is solved, so set "solved" to true */
+
+        /*
+
+
+        INSERT YOUR CODE HERE
+
+
+         */
+
+        /* return reference to guessed word (so it can be added to the database) */
+
+        return result;
+
+    }
+
+    public void addWordToGrid(String key) {
+
+        /* get word from collection; add key to set of guessed words */
+
+        Word w = words.get(key);
+
+        guessed.add(key);
+
+        /* get word properties and add letters to "leters" array */
+
+        /*
+
+
+        INSERT YOUR CODE HERE
+
+
+         */
+
+    }
+
+    public Word getWord(String key) {
+        return words.get(key);
     }
 
     public String getName() {
@@ -117,8 +196,12 @@ public class Puzzle {
         return letters;
     }
 
-    public Integer[][] getBoxes() {
-        return boxes;
+    public Integer[][] getNumbers() {
+        return numbers;
+    }
+
+    public boolean isSolved() {
+        return solved;
     }
 
 }
