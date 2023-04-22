@@ -7,8 +7,6 @@ import java.util.HashSet;
 
 public class Puzzle {
 
-    public static final String PUZZLE_TAG = "Puzzle";
-
     public static final char BLOCK_CHAR = '*';
     public static final char BLANK_CHAR = ' ';
 
@@ -21,7 +19,7 @@ public class Puzzle {
     private Character[][] letters;
     private Integer[][] numbers;
 
-    private boolean solved = false;
+    private boolean solved = true;
 
     private StringBuilder cluesAcrossBuffer, cluesDownBuffer;
 
@@ -117,6 +115,8 @@ public class Puzzle {
 
 
          */
+        Word wordAcross = words.get(acrossKey);
+        Word wordDown = words.get(downKey);
 
 
         /* compare guess to word(s); if it matches, and if it has not already been solved, assign word to "result" and call "addWordToGrid()" */
@@ -129,6 +129,24 @@ public class Puzzle {
 
          */
 
+        if(wordAcross != null){
+            if((guess.equals(wordAcross.getWord())) && !(guessed.contains(acrossKey))){
+
+                result = wordAcross;
+                addWordToGrid(acrossKey);
+
+            }
+        }
+
+        if(wordDown != null){
+            if((guess.equals(wordDown.getWord())) && !(guessed.contains(downKey))){
+
+                result = wordDown;
+                addWordToGrid(downKey);
+
+            }
+        }
+
         /* check if any blank cells remain in "letters"; if not, the puzzle is solved, so set "solved" to true */
 
         /*
@@ -138,8 +156,24 @@ public class Puzzle {
 
 
          */
+        for (int i = 0; i < height; ++i) {
+
+            for (int j = 0; j < width; ++j) {
+
+                if(letters[i][j].equals(BLANK_CHAR)){
+
+                    solved = false;
+
+                }
+
+            }
+
+        }
+
 
         /* return reference to guessed word (so it can be added to the database) */
+
+        Log.i("Puzzle", "Result: " + result);
 
         return result;
 

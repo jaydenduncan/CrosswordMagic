@@ -239,13 +239,52 @@ public class PuzzleDatabaseModel extends SQLiteOpenHelper {
 
                     word = new Word(params2);
 
-                    System.out.println(word.toString());
-
                     puzzle.addWord(word);
 
                 }while(cursor.moveToNext());
 
                 cursor.close();
+
+                // loop through guesses; add each guessed word to the puzzle grid
+
+                String wordid;
+                String query2;
+                Cursor cursor2;
+
+                query = context.getString(R.string.sql_get_guesses);
+                cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+                if(cursor.moveToFirst()){
+
+                    cursor.moveToFirst();
+
+                    do{
+
+                        wordid = cursor.getString(1);
+
+                        query2 = context.getString(R.string.sql_get_word);
+                        cursor2 = db.rawQuery(query2, new String[]{wordid});
+
+                        if(cursor2.moveToFirst()){
+
+                            cursor2.moveToFirst();
+
+                            String box = String.valueOf(cursor2.getInt(4));
+                            String direction = String.valueOf(cursor2.getInt(5));
+
+                            direction = WordDirection.values()[Integer.parseInt(direction)].toString();
+
+                            String key = box + direction;
+
+                            puzzle.addWordToGrid(key);
+
+                        }
+
+                    }while(cursor.moveToNext());
+
+                    cursor.close();
+                    cursor2.close();
+                }
 
             }
 
@@ -261,7 +300,13 @@ public class PuzzleDatabaseModel extends SQLiteOpenHelper {
 
     public void addGuess(int puzzleid, int wordid){
 
+        ContentValues values = new ContentValues();
+        values.put(context.getString(R.string.sql_field_puzzleid), String.valueOf(puzzleid));
+        values.put(context.getString(R.string.sql_field_wordid), String.valueOf(wordid));
 
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(context.getString(R.string.sql_table_guesses), null, values);
+        db.close();
 
     }
 
