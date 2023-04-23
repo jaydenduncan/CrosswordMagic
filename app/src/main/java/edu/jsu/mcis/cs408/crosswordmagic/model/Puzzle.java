@@ -19,7 +19,7 @@ public class Puzzle {
     private Character[][] letters;
     private Integer[][] numbers;
 
-    private boolean solved = true;
+    private boolean solved = false;
 
     private StringBuilder cluesAcrossBuffer, cluesDownBuffer;
 
@@ -99,6 +99,7 @@ public class Puzzle {
 
     public Word guess(Integer num, String guess) {
 
+        solved = true;
         Word result = null;
 
         /* create keys for across/down word(s) at specified box number */
@@ -108,26 +109,11 @@ public class Puzzle {
 
         /* get word(s) from collection (will return null for non-existent words!) */
 
-        /*
-
-
-        INSERT YOUR CODE HERE
-
-
-         */
         Word wordAcross = words.get(acrossKey);
         Word wordDown = words.get(downKey);
 
 
         /* compare guess to word(s); if it matches, and if it has not already been solved, assign word to "result" and call "addWordToGrid()" */
-
-        /*
-
-
-        INSERT YOUR CODE HERE
-
-
-         */
 
         if(wordAcross != null){
             if((guess.equals(wordAcross.getWord())) && !(guessed.contains(acrossKey))){
@@ -149,13 +135,6 @@ public class Puzzle {
 
         /* check if any blank cells remain in "letters"; if not, the puzzle is solved, so set "solved" to true */
 
-        /*
-
-
-        INSERT YOUR CODE HERE
-
-
-         */
         for (int i = 0; i < height; ++i) {
 
             for (int j = 0; j < width; ++j) {
@@ -172,8 +151,6 @@ public class Puzzle {
 
 
         /* return reference to guessed word (so it can be added to the database) */
-
-        Log.i("Puzzle", "Result: " + result);
 
         return result;
 
